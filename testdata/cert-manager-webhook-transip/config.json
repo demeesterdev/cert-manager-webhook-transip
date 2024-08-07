@@ -1,0 +1,5 @@
+{
+  "accountName": "<accountname>",
+  "privateKey": "<privatekey base64 encoded>",
+  "ttl": 30
+}

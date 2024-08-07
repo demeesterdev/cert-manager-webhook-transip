@@ -17,9 +17,18 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
+# Ignore the built binary
+
+cert-manager-webhook-transip
+
 # Go workspace file
 go.work
 go.work.sum
 
 # env file
 .env
+
+# Make artifacts
+
+\_out
+\_test
