@@ -25,8 +25,9 @@ func TestRunsSuite(t *testing.T) {
 		acmetest.SetPropagationLimit(time.Minute*5),
 	)
 
-	//need to uncomment and  RunConformance delete runBasic and runExtended once https://github.com/cert-manager/cert-manager/pull/4835 is merged
+	// need to uncomment and  RunConformance delete runBasic and runExtended once
+	// once https://github.com/cert-manager/cert-manager/pull/4835
 	fixture.RunConformance(t)
-	//fixture.RunBasic(t)
-	//fixture.RunExtended(t)
+	// fixture.RunBasic(t)
+	// fixture.RunExtended(t)
 }

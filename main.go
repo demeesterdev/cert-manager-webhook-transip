@@ -5,7 +5,7 @@ import (
 
 	"github.com/cert-manager/cert-manager/pkg/acme/webhook/cmd"
 	"github.com/demeesterdev/cert-manager-webhook-transip/transip"
-	"k8s.io/klog"
+	"k8s.io/klog/v2"
 )
 
 func main() {

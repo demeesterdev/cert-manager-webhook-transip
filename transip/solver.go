@@ -7,7 +7,7 @@ import (
 	meta "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
-	"k8s.io/klog"
+	"k8s.io/klog/v2"
 
 	"github.com/cert-manager/cert-manager/pkg/acme/webhook"
 	acme "github.com/cert-manager/cert-manager/pkg/acme/webhook/apis/acme/v1alpha1"
@@ -107,7 +107,7 @@ func (s *Solver) CleanUp(ch *acme.ChallengeRequest) error {
 }
 
 // Initialize will be called when the webhook first starts.
-// This method can be used to instantiate the webhook, i.e. initialising
+// This method can be used to instantiate the webhook, i.e. initializing
 // connections or warming up caches.
 // Typically, the kubeClientConfig parameter is used to build a Kubernetes
 // client that can be used to fetch resources from the Kubernetes API, e.g.
@@ -132,7 +132,7 @@ func (s *Solver) newClientFromChallenge(ch *acme.ChallengeRequest) (*Client, err
 		return nil, err
 	}
 
-	if klog.V(1) {
+	if klog.V(1).Enabled() {
 		klog.Infof("Decoded config: %s", cfg)
 	}
 
@@ -166,7 +166,6 @@ func (s *Solver) getClientConfiguration(cfg *Config, ns string) (ClientConfigura
 			return ClientConfiguration{}, err
 		}
 		clientCfg.PrivateKey = privateKey
-
 	} else {
 		clientCfg.AccountName = cfg.AccountName
 		if cfg.PrivateKeySecretRef.Name != "" {

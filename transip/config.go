@@ -70,7 +70,8 @@ func validateConfig(cfg *Config) error {
 
 func (c Config) String() string {
 	if len(c.PrivateKey) != 0 {
-		return fmt.Sprintf("{secretRef: %v, accountName: %s, privateKey: <****>, privateKeySecretRef: %v, ttl: %d, dryRun: %t}",
+		return fmt.Sprintf(
+			"{secretRef: %v, accountName: %s, privateKey: <****>, privateKeySecretRef: %v, ttl: %d, dryRun: %t}",
 			c.SecretRef,
 			c.AccountName,
 			c.PrivateKeySecretRef,

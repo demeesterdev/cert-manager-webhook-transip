@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"k8s.io/klog"
+	"k8s.io/klog/v2"
 
 	"github.com/transip/gotransip/v6"
 	"github.com/transip/gotransip/v6/domain"
@@ -25,7 +25,6 @@ type ClientConfiguration struct {
 
 // NewClientinitializes a new TransIP client.
 func newClient(cfg ClientConfiguration) (*Client, error) {
-
 	var apiMode gotransip.APIMode
 	if cfg.DryRun {
 		apiMode = gotransip.APIModeReadOnly
@@ -49,21 +48,24 @@ func newClient(cfg ClientConfiguration) (*Client, error) {
 // getHostedDomain returns the hosted domain for the given zone.
 func (c *Client) getHostedDomain(zone string) (string, error) {
 	domainName := extractDomainName(zone)
-	domain, err := c.dnsRepo.GetByDomainName(domainName)
+	domainRef, err := c.dnsRepo.GetByDomainName(domainName)
 	if err != nil {
 		return "", fmt.Errorf("could net get domain %s: %w", domainName, err)
 	}
 
-	return domain.Name, nil
+	return domainRef.Name, nil
 }
 
-func (c *Client) setRecord(domainName, fqdn string, expire int, recordType string, Content string) error {
+// setRecord creates a new DNS record in the given domain.
+func (c *Client) setRecord(
+	domainName, fqdn string, expire int, recordType, content string,
+) error { //nolint: whitespace
 
 	dnsEntry := domain.DNSEntry{
 		Name:    extractRecordName(fqdn, domainName),
 		Expire:  expire,
 		Type:    recordType,
-		Content: Content,
+		Content: content,
 	}
 
 	dnsEntries, err := c.dnsRepo.GetDNSEntries(domainName)
@@ -88,13 +90,16 @@ func (c *Client) setRecord(domainName, fqdn string, expire int, recordType strin
 	return nil
 }
 
-func (c *Client) deleteRecord(domainName, fqdn string, expire int, recordType string, Content string) error {
+// deleteRecord deletes a DNS record in the given domain.
+func (c *Client) deleteRecord(
+	domainName, fqdn string, expire int, recordType, content string,
+) error { //nolint: whitespace
 
 	dnsEntry := domain.DNSEntry{
 		Name:    extractRecordName(fqdn, domainName),
 		Expire:  expire,
 		Type:    recordType,
-		Content: Content,
+		Content: content,
 	}
 
 	dnsEntries, err := c.dnsRepo.GetDNSEntries(domainName)
@@ -127,8 +132,8 @@ func extractDomainName(zone string) string {
 	return util.UnFqdn(authZone)
 }
 
-func extractRecordName(fqdn, domain string) string {
-	if idx := strings.Index(fqdn, "."+domain); idx != -1 {
+func extractRecordName(fqdn, domainName string) string {
+	if idx := strings.Index(fqdn, "."+domainName); idx != -1 {
 		return fqdn[:idx]
 	}
 	return util.UnFqdn(fqdn)
