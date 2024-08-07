@@ -1,0 +1,7 @@
+# Ignore everything:
+*
+
+# Do not ignore these files:
+index.yaml
+README.md
+_config.yml
