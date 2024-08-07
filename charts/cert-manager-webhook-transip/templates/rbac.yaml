@@ -93,7 +93,7 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: {{ include "cert-manager-webhook-transip..fullname" . }}:secret-reader
+  name: {{ include "cert-manager-webhook-transip.fullname" . }}:secret-reader
   namespace: {{ .Release.Namespace }}
 rules:
   - apiGroups:

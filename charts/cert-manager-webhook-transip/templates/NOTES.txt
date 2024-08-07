@@ -5,7 +5,7 @@ configure the credential secret:
     apiVersion: v1
     kind: Secret
     metadata:
-      name: {{ index .values.secretName 0 }}
+      name: {{ index .Values.secretName 0 }}
       namespace: {{ .Release.Namespace }}
     type: Opaque
     data:
@@ -29,11 +29,11 @@ and deploy an certifcate issuer as such:
         solvers:
           - dns01:
               webhook:
-                groupName: {{ values.groupName }}
+                groupName: {{ .Values.groupName }}
                 solverName: transip
                 config:
                   accountName: your-transip-username
                   ttl: 300
                   privateKeySecretRef:
-                    name: {{ index .values.secretName 0 }}
+                    name: {{ index .Values.secretName 0 }}
                     key: privateKey
