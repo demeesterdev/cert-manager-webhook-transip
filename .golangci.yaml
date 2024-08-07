@@ -37,7 +37,6 @@ linters-settings:
     disabled-checks:
       - whyNoLint
       - wrapperFunc
-  gosec:
   revive:
     rules:
       - name: var-naming

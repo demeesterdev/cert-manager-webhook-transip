@@ -18,9 +18,10 @@ bin/
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
-# Ignore the built binary
+# Ignore the built binary and files
 
-cert-manager-webhook-transip
+/cert-manager-webhook-transip
+apiserver.local.config/*
 
 # Go workspace file
 go.work

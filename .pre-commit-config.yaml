@@ -1,0 +1,33 @@
+repos:
+  - repo: https://github.com/dadav/helm-schema
+    rev: 0.12.0
+    hooks:
+      - id: helm-schema
+        # for all available options: helm-schema -h
+        args:
+          # directory to search recursively within for charts
+          - --chart-search-root=charts
+          # don't analyze dependencies
+          - --no-dependencies
+          # add references to values file if not exist
+          - --add-schema-reference
+          # make all specified values optional (as they are already in values.yaml)
+          - --skip-auto-generation=required
+        stages: [manual]
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.15
+    hooks:
+      - id: helmlint
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.1.0
+    hooks:
+      - id: end-of-file-fixer
+        files: (?!values.schema.json)
+      - id: trailing-whitespace
+  - repo: https://github.com/golangci/golangci-lint
+    rev: v1.59.1
+    hooks:
+      - id: golangci-lint-config-verify
+      - id: golangci-lint
+        args:
+          - --fast

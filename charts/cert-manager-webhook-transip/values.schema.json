@@ -1,0 +1,116 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "affinity": {
+      "additionalProperties": false,
+      "title": "affinity",
+      "type": "object"
+    },
+    "certManager": {
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "default": "cert-manager",
+          "title": "namespace",
+          "type": "string"
+        },
+        "serviceAccountName": {
+          "default": "cert-manager",
+          "title": "serviceAccountName",
+          "type": "string"
+        }
+      },
+      "title": "certManager",
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "default": "",
+      "title": "fullnameOverride",
+      "type": "string"
+    },
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "title": "global",
+      "type": "object"
+    },
+    "groupName": {
+      "default": "acme.transip.nl",
+      "description": "yaml-language-server: $schema=values.schema.json\nThe GroupName here is used to identify your company or business unit that\ncreated this webhook.\nFor example, this may be \"acme.mycompany.com\".\nThis name will need to be referenced in each Issuer's `webhook` stanza to\ninform cert-manager of where to send ChallengePayload resources in order to\nsolve the DNS01 challenge.\nThis group name should be **unique**, hence using your own company's domain\nhere is recommended.",
+      "title": "groupName",
+      "type": "string"
+    },
+    "image": {
+      "additionalProperties": false,
+      "properties": {
+        "pullPolicy": {
+          "default": "IfNotPresent",
+          "title": "pullPolicy",
+          "type": "string"
+        },
+        "repository": {
+          "default": "demeesterdev/cert-manager-webhook-transip",
+          "title": "repository",
+          "type": "string"
+        },
+        "tag": {
+          "default": "latest",
+          "title": "tag",
+          "type": "string"
+        }
+      },
+      "title": "image",
+      "type": "object"
+    },
+    "nameOverride": {
+      "default": "",
+      "title": "nameOverride",
+      "type": "string"
+    },
+    "nodeSelector": {
+      "additionalProperties": false,
+      "title": "nodeSelector",
+      "type": "object"
+    },
+    "resources": {
+      "additionalProperties": false,
+      "title": "resources",
+      "type": "object"
+    },
+    "secretName": {
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "description": "The name of the secret used to store transip credentials or just te private key\nused to create rbac resources to allow reading the secrets.",
+      "title": "secretName",
+      "type": "array"
+    },
+    "service": {
+      "additionalProperties": false,
+      "properties": {
+        "port": {
+          "default": 443,
+          "title": "port",
+          "type": "integer"
+        },
+        "type": {
+          "default": "ClusterIP",
+          "title": "type",
+          "type": "string"
+        }
+      },
+      "title": "service",
+      "type": "object"
+    },
+    "tolerations": {
+      "items": {},
+      "title": "tolerations",
+      "type": "array"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object"
+}
