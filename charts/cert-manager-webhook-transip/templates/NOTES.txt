@@ -1,0 +1,39 @@
+You have succesfully installed the cert manager webhook to work with transip.
+
+configure the credential secret:
+
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: {{ index .Values.secretName 0 }}
+      namespace: {{ .Release.Namespace }}
+    type: Opaque
+    data:
+      privateKey: your-key-base64-encoded
+
+and deploy an certifcate issuer as such:
+
+    apiVersion: cert-manager.io/v1
+    kind: ClusterIssuer
+    metadata:
+      name: letsencrypt-staging
+    spec:
+      acme:
+        # The ACME server URL
+        server: https://acme-staging-v02.api.letsencrypt.org/directory
+        # Email address used for ACME registration
+        email: mail@example.com # REPLACE THIS WITH YOUR EMAIL!!!
+        # Name of a secret used to store the ACME account private key
+        privateKeySecretRef:
+          name: letsencrypt-staging
+        solvers:
+          - dns01:
+              webhook:
+                groupName: {{ .Values.groupName }}
+                solverName: transip
+                config:
+                  accountName: your-transip-username
+                  ttl: 300
+                  privateKeySecretRef:
+                    name: {{ index .Values.secretName 0 }}
+                    key: privateKey

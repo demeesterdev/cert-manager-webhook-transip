@@ -1,0 +1,22 @@
+apiVersion: v1
+version: 0.1.0
+appVersion: "0.1"
+description: A Helm chart for Kubernetes
+name: cert-manager-webhook-transip
+
+home: https://github.com/demeesterdev/cert-manager-webhook-tdemeester
+icon: https://raw.githubusercontent.com/cert-manager/cert-manager/master/logo/logo-small.png
+keywords:
+  - cert-manager
+  - transip
+  - kube-lego
+  - letsencrypt
+  - tls
+sources:
+  - https://github.com/demeesterdev/cert-manager-webhook-transip
+maintainers:
+  - name: demeesterdev
+    email: thijs@demeester.dev
+    url: https://github.com/demeesterdev
+annotations:
+  artifacthub.io/license: Apache-2.0

@@ -1,0 +1,83 @@
+# options for analysis running
+run:
+  modules-download-mode: mod
+linters-settings:
+  depguard:
+    # Rules to apply.
+    # Default: Only allow $gostd in all files.
+    rules:
+      # Name of a rule.
+      main:
+        # List of file globs that will match this list of settings to compare against.
+        # Default: $all
+        files:
+          - "!**/*_a _file.go"
+        # List of allowed packages.
+        allow:
+          - $gostd
+          - k8s.io/apiextensions-apiserver
+          - k8s.io/apimachinery
+          - k8s.io/client-go/kubernetes
+          - k8s.io/client-go/rest
+          - k8s.io/api/core/v1
+          - k8s.io/klog/v2
+          - github.com/cert-manager/cert-manager
+          - github.com/transip/gotransip/v6
+          - github.com/demeesterdev/cert-manager-webhook-transip/transip
+        # Packages that are not allowed where the value is a suggestion.
+  misspell:
+    locale: US
+  goimports:
+    local-prefixes: github.com/golangci/golangci-lint
+  gocritic:
+    enabled-tags:
+      - performance
+      - style
+      - experimental
+    disabled-checks:
+      - whyNoLint
+      - wrapperFunc
+  revive:
+    rules:
+      - name: var-naming
+        disabled: true
+
+linters:
+  disable-all: true
+  enable:
+    - bodyclose
+    - depguard
+    - dogsled
+    - dupl
+    - errcheck
+    - exportloopref
+    - exhaustive
+    - funlen
+    - goconst
+    - gocritic
+    - gocyclo
+    - gofmt
+    - goimports
+    - goprintffuncname
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - lll
+    - misspell
+    - nakedret
+    - noctx
+    - nolintlint
+    - revive
+    - rowserrcheck
+    - staticcheck
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
+    - whitespace
+
+issues:
+  exclude-rules:
+    - path: main_test\.go
+      text: "may want to remove commented-out code"
