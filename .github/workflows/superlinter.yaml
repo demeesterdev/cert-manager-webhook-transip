@@ -1,4 +1,5 @@
 name: Lint Code Base
+run-name: Lint Code Base ${{ github.ref_name }}
 
 # Documentation:
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions

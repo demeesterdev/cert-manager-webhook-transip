@@ -1,5 +1,5 @@
 name: build
-run-name: Build and Deploy
+run-name: Build ${{ github.ref_name }}
 
 on:
   push:

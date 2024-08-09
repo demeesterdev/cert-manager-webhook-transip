@@ -1,0 +1,28 @@
+name: cleanup-pr
+run-name: Cleanup PR ${{ github.ref_name }}
+
+on:
+  pull_request:
+    types:
+      - closed
+
+permissions:
+  packages: write
+
+jobs:
+  cleanup_pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Remove Docker PR Tag
+      uses: rafalkk/remove-dockertag-action@v1
+      with:
+        # Name of the Docker tag to delete.
+        # (required)
+        tag_name: 'pr-${{ github.event.pull_request.number }}'
+
+        # Token is required to log in to the Container Registry and use the GitHub API.
+        # (required)
+        github_token: ${{ secrets.GITHUB_TOKEN }}

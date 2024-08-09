@@ -1,4 +1,6 @@
 name: lint go
+run-name: Lint Go ${{ github.ref_name }}
+
 on:
   push:
     branches:
