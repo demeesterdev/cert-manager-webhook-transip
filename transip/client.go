@@ -9,6 +9,7 @@ import (
 
 	"github.com/transip/gotransip/v6"
 	"github.com/transip/gotransip/v6/domain"
+	"github.com/transip/gotransip/v6/test"
 
 	"github.com/cert-manager/cert-manager/pkg/issuer/acme/dns/util"
 )
@@ -23,7 +24,7 @@ type ClientConfiguration struct {
 	DryRun      bool
 }
 
-// NewClientinitializes a new TransIP client.
+// NewClient initializes a new TransIP client.
 func newClient(cfg ClientConfiguration) (*Client, error) {
 	var apiMode gotransip.APIMode
 	if cfg.DryRun {
@@ -38,8 +39,15 @@ func newClient(cfg ClientConfiguration) (*Client, error) {
 		PrivateKeyReader: bytes.NewReader(cfg.PrivateKey),
 		Mode:             apiMode,
 	})
+
 	if err != nil {
 		return nil, fmt.Errorf("could not setup TransIP API client: %w", err)
+	}
+
+	testClient := test.Repository{Client: client}
+	err = testClient.Test()
+	if err != nil {
+		return nil, fmt.Errorf("test to connect with TransIP failed: %w", err)
 	}
 
 	return &Client{dnsRepo: domain.Repository{Client: client}}, nil

@@ -45,6 +45,7 @@ func (s *Solver) Present(ch *acme.ChallengeRequest) error {
 
 	cfg, err := loadConfig(ch.Config)
 	if err != nil {
+		klog.Errorf("Load config error: %v", err)
 		return err
 	}
 
@@ -82,6 +83,7 @@ func (s *Solver) CleanUp(ch *acme.ChallengeRequest) error {
 
 	cfg, err := loadConfig(ch.Config)
 	if err != nil {
+		klog.Errorf("Load config error: %v", err)
 		return err
 	}
 
