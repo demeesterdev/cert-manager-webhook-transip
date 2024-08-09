@@ -1,6 +1,5 @@
 name: build
 run-name: Build ${{ github.ref_name }}
-
 on:
   push:
     branches:
@@ -29,8 +28,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            name=demeesterdev/cert-manager-webhook-transip,enable=${{ github.event_name != 'pull_request' }}
-            ghcr.io/demeesterdev/cert-manager-webhook-transip
+            name=docker.io/demeesterdev/cert-manager-webhook-transip,enable=${{ github.event_name != 'pull_request' }}
+            name=ghcr.io/demeesterdev/cert-manager-webhook-transip
           tags: |
             type=ref,event=branch,enable=${{ github.event_name != 'pull_request' }}
             type=ref,event=pr,enable=${{ github.event_name == 'pull_request' }}
