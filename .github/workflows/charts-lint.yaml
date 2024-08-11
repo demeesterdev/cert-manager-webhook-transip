@@ -17,9 +17,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Helm
-        uses: azure/setup-helm@v3
-        with:
-          version: v3.12.1
+        uses: azure/setup-helm@v4.2.0
 
       - uses: actions/setup-python@v5
         with:
@@ -45,6 +43,7 @@ jobs:
         uses: helm/kind-action@v1.8.0
 
       - name: Install cert-manager
+        if: steps.list-changed.outputs.changed == 'true'
         run: |
           kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.2/cert-manager.yaml
           kubectl wait --timeout=5m --for=condition=available deployment cert-manager -n cert-manager

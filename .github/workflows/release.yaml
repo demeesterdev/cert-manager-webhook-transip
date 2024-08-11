@@ -4,7 +4,7 @@ run-name: Release Helm Chart ${{ github.ref_name }}
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   release:
