@@ -4,7 +4,7 @@ run-name: Lint and Test Chart ${{ github.ref_name }}
 on:
   pull_request:
     paths:
-      - "deploy/**"
+      - "charts/**"
       - ".github/**"
 
 jobs:
