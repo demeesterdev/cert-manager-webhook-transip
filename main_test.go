@@ -17,6 +17,9 @@ func TestRunsSuite(t *testing.T) {
 	// The manifest path should contain a file named config.json that is a
 	// snippet of valid configuration that should be included on the
 	// ChallengeRequest passed as part of the test cases.
+	if zone == "" {
+		t.Error("resolvedZone is an empty string, please set TEST_ZONE_NAME")
+	}
 	solver := transip.NewSolver()
 	fixture := acmetest.NewFixture(solver,
 		acmetest.SetResolvedZone(zone),
