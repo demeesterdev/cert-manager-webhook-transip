@@ -6,6 +6,7 @@ chart-dirs:
 chart-repos:
   - cert-manager-webhook-transip=https://demeester.dev/cert-manager-webhook-transip
 helm-extra-args: --timeout 600s
+check-version-increment: false
 excluded-charts:
 additional-commands:
   # - helm unittest --helm3 --strict --file unittests/*.yaml --file 'unittests/**/*.yaml' {{ .Path }}

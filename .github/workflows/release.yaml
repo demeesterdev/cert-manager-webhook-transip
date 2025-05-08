@@ -3,8 +3,8 @@ run-name: Release Helm Chart ${{ github.ref_name }}
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 jobs:
   release:
@@ -25,6 +25,14 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Update versions
+        run: |
+          # update the chart version in Chart.yaml
+            sed -i "s/version: 0.0.0/version: ${GITHUB_REF_NAME#v}/" charts/cert-manager-webhook-transip/Chart.yaml
+            sed -i "s/appVersion: \"0.0.0\"/appVersion: \"${GITHUB_REF_NAME#v}\"/" charts/cert-manager-webhook-transip/Chart.yaml
+          # update the chart version in values.yaml
+            sed -i "s/tag: latest/tag: ${GITHUB_REF_NAME#v}/" charts/cert-manager-webhook-transip/values.yaml
 
       - name: Install Helm
         uses: azure/setup-helm@v4
