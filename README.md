@@ -145,7 +145,7 @@ TEST_ZONE_NAME=example.com. make test
 To build new Docker image for multiple architectures and push it to hub:
 
 ```shell
-docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t demeesterdev/cert-manager-webhook-transip:1.2.0 . --push
+docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7,linux/riscv64 -t demeesterdev/cert-manager-webhook-transip:1.2.0 . --push
 ```
 
 To compile and publish new Helm chart version:
